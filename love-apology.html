@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <title>Love and Apology</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffb6c1, #add8e6);
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      position: relative; /* for stacking */
+      z-index: 0;
+    }
+
+    h1 {
+      color: #6a0dad;
+      font-size: 3rem;
+      margin-top: 60px;
+      font-style: italic;
+      position: relative;
+      z-index: 10; /* ensure above floaters */
+    }
+
+    .message {
+      margin: 40px auto 20px;
+      max-width: 800px;
+      font-size: 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 15px;
+      color: #9b59b6;
+      line-height: 1.6;
+      position: relative;
+      z-index: 10; /* above floaters */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .highlight-pink {
+      color: #ff66b2;
+      font-weight: bold;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      min-width: 150px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back {
+      background: linear-gradient(to right, #ff66b2, #66b2ff);
+      color: white;
+    }
+
+    .btn-back:hover {
+      background: linear-gradient(to right, #ff3385, #3399ff);
+    }
+
+    .btn-memories {
+      background: linear-gradient(to right, #ff69b4, #87cefa);
+      color: white;
+    }
+
+    .btn-memories:hover {
+      background: linear-gradient(to right, #ff1493, #00bfff);
+    }
+
+    .waving-teddy {
+      font-size: 3rem;
+      animation: wave 1s infinite;
+      margin: 40px 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0); }
+      50% { transform: rotate(15deg); }
+    }
+
+    #floating-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;  /* behind main content */
+      overflow: visible; /* allow floaters to move outside */
+      user-select: none;
+    }
+
+    .floating {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.6;
+      will-change: transform, opacity;
+      user-select: none;
+      pointer-events: none;
+      filter: drop-shadow(0 0 4px rgba(255, 102, 178, 0.3)); /* soft glow */
+      transition: opacity 2s;
+    }
+  </style>
+</head>
+<body>
+  <h1>I Love You❤️</h1>
+
+  <div class="message">
+    <p>
+      Hey, Lee🫶🫶,<br>
+      <span class="highlight-pink">Zemra ime,</span><br>
+      I know I’ve made mistakes, and every second without you feels so empty.<br>
+      Dua të të tregoj se dashuria ime për ty është më e fortë se çdo keqkuptim.<br>
+      <span class="highlight-pink">You are my light, my peace, my everything.</span><br>
+      Më fal që të kam lënduar — më mungon çdo buzëqeshje jote, çdo përqafim.<br>
+      Let me hold your hand again and fix what I broke.<br>
+      <span class="highlight-pink">Të dua me gjithë zemër. 💖💙💙</span>
+    </p>
+  </div>
+
+  <div class="buttons">
+    <button class="btn btn-back" onclick="window.location.href='index.html'">Go Back</button>
+    <button class="btn btn-memories" onclick="window.location.href='memories.html'">View Memories</button>
+  </div>
+
+  <div class="waving-teddy">🧸</div>
+
+  <div id="floating-container"></div>
+
+  <script>
+    const container = document.getElementById("floating-container");
+    const symbols = ['❤️', '💙', '💖', '🧸', 'Lee', '💗', '💓', '💞'];
+    const floaters = [];
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    class Floater {
+      constructor() {
+        this.el = document.createElement('div');
+        this.el.classList.add('floating');
+        this.el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        this.el.style.fontSize = `${random(16, 40)}px`;
+        this.el.style.color = ['#ff66b2', '#66b2ff', '#ff4d4d', '#ff99cc'][Math.floor(Math.random() * 4)];
+        container.appendChild(this.el);
+
+        this.x = random(0, window.innerWidth);
+        this.y = random(0, window.innerHeight);
+
+        this.vx = random(-0.5, 0.5);
+        this.vy = random(-0.3, -1);
+
+        this.opacity = random(0.6, 1);
+        this.el.style.opacity = this.opacity;
+
+        this.updatePosition();
+      }
+
+      updatePosition() {
+        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
+        this.el.style.opacity = this.opacity;
+      }
+
+      move() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.y < -50 || this.x < -50 || this.x > window.innerWidth + 50) {
+          this.x = random(0, window.innerWidth);
+          this.y = window.innerHeight + 50;
+          this.vx = random(-0.5, 0.5);
+          this.vy = random(-0.3, -1);
+          this.opacity = random(0.6, 1);
+          this.el.style.opacity = this.opacity;
+        }
+
+        this.updatePosition();
+      }
+    }
+
+    for (let i = 0; i < 25; i++) {
+      floaters.push(new Floater());
+    }
+
+    function animate() {
+      floaters.forEach(floater => floater.move());
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      floaters.forEach(floater => {
+        floater.x = Math.min(floater.x, window.innerWidth);
+        floater.y = Math.min(floater.y, window.innerHeight);
+      });
+    });
+  </script>
+</body>
+</html>

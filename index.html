@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome, My Love!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #ffb6c1, #add8e6);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      color: #333;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+    h1 {
+      color: #ff66b2;
+      font-size: 3rem;
+      margin-top: 60px;
+      font-family: 'Dancing Script', cursive;
+    }
+    p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+    .btn {
+      background-color: #ff66b2;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      font-size: 20px;
+      border-radius: 10px;
+      margin-top: 50px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #ff3385;
+    }
+    .floating-heart, .floating-lee {
+      position: absolute;
+      font-size: 2rem;
+      color: #ff66b2;
+      animation: float 6s infinite;
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .floating-lee {
+      font-weight: bold;
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+    }
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 0.7; }
+      100% { transform: translateY(-100px); opacity: 0; }
+    }
+    .bouncing-puppy {
+      font-size: 3rem;
+      animation: bounce 1s infinite;
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome, My Love!</h1>
+  <p>Click below to experience something special.</p>
+  <button class="btn" onclick="window.location.href='love-apology.html'">Enter</button>
+
+  <!-- Floating hearts -->
+  <div class="floating-heart" style="top: 20%; left: 10%; animation-delay: 0s;">❤️</div>
+  <div class="floating-heart" style="top: 30%; left: 80%; animation-delay: 1.5s;">❤️</div>
+  <div class="floating-heart" style="top: 60%; left: 50%; animation-delay: 3s;">❤️</div>
+  <div class="floating-heart" style="top: 70%; left: 20%; animation-delay: 4.5s;">❤️</div>
+  <div class="floating-heart" style="top: 50%; left: 70%; animation-delay: 6s;">❤️</div>
+
+  <!-- Floating LEE -->
+  <div class="floating-lee" style="top: 25%; left: 15%; animation-delay: 0.7s;">LEE</div>
+  <div class="floating-lee" style="top: 40%; left: 75%; animation-delay: 2.2s;">LEE</div>
+  <div class="floating-lee" style="top: 55%; left: 30%; animation-delay: 3.7s;">LEE</div>
+  <div class="floating-lee" style="top: 65%; left: 85%; animation-delay: 5.1s;">LEE</div>
+  <div class="floating-lee" style="top: 45%; left: 60%; animation-delay: 6.8s;">LEE</div>
+
+  <div class="bouncing-puppy">🐶</div>
+
+  <script>
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        window.location.href = "love-apology.html";
+      }
+    });
+  </script>
+</body>
+</html>
+

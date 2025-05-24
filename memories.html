@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Memories</title>
+
+  <!-- Preload Resources -->
+  <link rel="preload" href="1.jpeg" as="image">
+  <link rel="preload" href="2.jpeg" as="image">
+  <link rel="preload" href="songs/A Ja Thash.mp3" as="audio">
+  <link rel="preload" href="video1.mp4" as="video">
+
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #add8e6, #ffb6c1);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      min-height: 100vh;
+      transition: opacity 0.5s ease;
+    }
+
+    h1 {
+      margin-top: 60px;
+      color: #ff66b2;
+      font-size: 3rem;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .gallery {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .gallery img, .gallery video {
+      width: 100%;
+      max-width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .gallery img:hover, .gallery video:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-back {
+      margin: 30px;
+      padding: 12px 25px;
+      background: linear-gradient(to right, #ff66b2, #66b2ff);
+      color: white;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .btn-back:hover {
+      background: linear-gradient(to right, #ff3385, #3399ff);
+    }
+
+    #password-section {
+      margin-top: 50px;
+    }
+
+    #password {
+      font-size: 1.5rem;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 250px;
+    }
+
+    .floating-heart, .floating-bear {
+      position: fixed;
+      font-size: 2rem;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .floating-heart {
+      color: #ff66b2;
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    .floating-bear {
+      font-size: 3rem;
+      animation: floatBear 8s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    @keyframes floatBear {
+      0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #music-player {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 12px 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+      z-index: 10;
+    }
+
+    #music-player label {
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    #song-select {
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+
+    #play-pause-btn {
+      background: #ff66b2;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #play-pause-btn:hover {
+      background: #ff3385;
+    }
+  </style>
+</head>
+<body>
+  <h1>Our Beautiful Memories</h1>
+
+  <div id="password-section">
+    <input type="password" id="password" placeholder="Enter Password" />
+    <br />
+    <label><input type="checkbox" id="show-password" /> Show Password</label>
+    <br /><br />
+    <button class="btn-back" onclick="checkPassword()">Enter</button>
+  </div>
+
+  <div class="gallery" id="memoryGallery">
+    <img src="1.jpeg" alt="Memory 1" />
+    <img src="2.jpeg" alt="Memory 2" />
+    <img src="3.jpeg" alt="Memory 3" />
+    <img src="4.jpeg" alt="Memory 4" />
+    <img src="5.jpeg" alt="Memory 5" />
+    <img src="6.jpeg" alt="Memory 6" />
+    <img src="7.jpeg" alt="Memory 7" />
+    <img src="8.jpeg" alt="Memory 8" />
+    <img src="9.jpeg" alt="Memory 9" />
+    <img src="10.jpeg" alt="Memory 10" />
+    <img src="11.jpeg" alt="Memory 11" />
+    <img src="12.jpeg" alt="Memory 12" />
+    <img src="13.jpg" alt="Memory 13" />
+    <img src="14.jpeg" alt="Memory 14" />
+    <img src="15.jpeg" alt="Memory 15" />
+    <video width="250" controls><source src="video1.mp4" type="video/mp4" /></video>
+    <video width="250" controls><source src="video2.mp4" type="video/mp4" /></video>
+    <video width="250" controls><source src="video3.mp4" type="video/mp4" /></video>
+    <video width="250" controls><source src="video4.mp4" type="video/mp4" /></video>
+  </div>
+
+  <button class="btn-back" onclick="goBackWithFade()">Back</button>
+
+  <!-- Floating Elements -->
+  <div class="floating-heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+  <div class="floating-heart" style="left: 30%; animation-delay: 2s;">❤️</div>
+  <div class="floating-heart" style="left: 50%; animation-delay: 4s;">❤️</div>
+  <div class="floating-heart" style="left: 70%; animation-delay: 1s;">❤️</div>
+  <div class="floating-heart" style="left: 90%; animation-delay: 3s;">❤️</div>
+  <div class="floating-bear" style="left: 20%; animation-delay: 0s;">🧸</div>
+  <div class="floating-bear" style="left: 60%; animation-delay: 3s;">🧸</div>
+  <div class="floating-bear" style="left: 80%; animation-delay: 5s;">🧸</div>
+
+  <!-- Music Player -->
+  <div id="music-player">
+    <label for="song-select">Choose song:</label>
+    <select id="song-select">
+      <option value="A Ja Thash.mp3">YOUR BEAUTY</option>
+      <option value="Yll Limani - Engjej.mp3">YOUR LOVE</option>
+      <option value="Lonely.mp3">THE FUN</option>
+    </select>
+    <button id="play-pause-btn">Play</button>
+    <audio id="audio-player" loop preload="auto"></audio>
+  </div>
+
+  <script>
+    function goBackWithFade() {
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 500);
+    }
+
+    window.onload = () => {
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.opacity = '1';
+      }, 50);
+    };
+
+    const passwordInput = document.getElementById('password');
+    const showPassword = document.getElementById('show-password');
+    const gallery = document.getElementById('memoryGallery');
+    const passwordSection = document.getElementById('password-section');
+
+    showPassword.addEventListener('change', () => {
+      passwordInput.type = showPassword.checked ? 'text' : 'password';
+    });
+
+    function checkPassword() {
+      if (passwordInput.value === 'LORA2025') {
+        passwordSection.style.display = 'none';
+        gallery.style.display = 'flex';
+
+        const children = [...gallery.children];
+        children.forEach((el, index) => {
+          el.style.animationDelay = `${index * 0.2}s`;
+        });
+
+        setTimeout(() => {
+          gallery.style.opacity = '1';
+        }, 100);
+      } else {
+        alert('Incorrect password. Please try again.');
+      }
+    }
+
+    const audioPlayer = document.getElementById('audio-player');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const songSelect = document.getElementById('song-select');
+
+    let isPlaying = false;
+
+    playPauseBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        const selectedSong = songSelect.value;
+        if (audioPlayer.src !== selectedSong) {
+          audioPlayer.src = selectedSong;
+        }
+        audioPlayer.play().then(() => {
+          isPlaying = true;
+          playPauseBtn.textContent = 'Pause';
+        }).catch((err) => {
+          alert('Playback failed. Please tap play again.');
+          console.error(err);
+        });
+      } else {
+        audioPlayer.pause();
+        isPlaying = false;
+        playPauseBtn.textContent = 'Play';
+      }
+    });
+
+    songSelect.addEventListener('change', () => {
+      const newSong = songSelect.value;
+      audioPlayer.src = newSong;
+      audioPlayer.play().then(() => {
+        isPlaying = true;
+        playPauseBtn.textContent = 'Pause';
+      }).catch((err) => {
+        alert('Tap Play after selecting a song.');
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
